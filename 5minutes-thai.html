@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5 Minutes Thai Updates — Thailand's Economy, Briefly.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:       #3d6b5c;
+      --teal-dark:  #2e5245;
+      --teal-mid:   #476e5f;
+      --teal-light: #557a6c;
+      --cream:      #f0ead6;
+      --cream-muted: rgba(240, 234, 214, 0.55);
+      --cream-dim:   rgba(240, 234, 214, 0.2);
+      --cream-border:rgba(240, 234, 214, 0.15);
+      --card-bg:    rgba(255,255,255,0.06);
+      --card-hover: rgba(255,255,255,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--teal);
+      color: var(--cream);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--teal-dark);
+      border-bottom: 1px solid var(--cream-border);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .logo-name {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: -0.3px;
+    }
+    .logo-dot { color: rgba(240,234,214,0.4); font-size: 18px; }
+    .logo-sub {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cream-muted);
+      letter-spacing: 0.5px;
+    }
+    nav { display: flex; gap: 32px; align-items: center; }
+    nav button {
+      background: none; border: none;
+      color: var(--cream-muted);
+      font-size: 14px; font-weight: 500;
+      cursor: pointer; font-family: inherit;
+      padding: 4px 0;
+      transition: color 0.2s;
+      letter-spacing: 0.2px;
+    }
+    nav button:hover { color: var(--cream); }
+    nav button.active {
+      color: var(--cream);
+      border-bottom: 1.5px solid var(--cream);
+      padding-bottom: 2px;
+    }
+
+    /* ── Pages ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--teal-dark);
+      padding: 72px 28px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(36px, 6vw, 62px);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.12;
+      margin-bottom: 14px;
+    }
+    .hero h1 em { font-style: italic; }
+    .hero-tagline {
+      font-size: 16px;
+      color: var(--cream-muted);
+      max-width: 500px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .hero-mascot {
+      width: 220px;
+      flex-shrink: 0;
+      opacity: 0.9;
+    }
+    /* SVG mascot inline */
+
+    /* ── Latest card ── */
+    .latest-card {
+      background: var(--card-bg);
+      border: 1px solid var(--cream-border);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 860px;
+      margin: -48px auto 0;
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+    }
+    .latest-card-top {
+      padding: 20px 28px 18px;
+      border-bottom: 1px solid var(--cream-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .edition-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+    }
+    .edition-date { font-size: 13px; color: var(--cream-muted); }
+    .latest-card-body { padding: 28px 28px 0; }
+    .latest-card-body h2 {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 22px;
+      line-height: 1.35;
+    }
+    .story-preview-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 0;
+    }
+    .story-preview {
+      border-left: 2px solid var(--cream-dim);
+      padding-left: 14px;
+      margin-bottom: 20px;
+    }
+    .story-preview h3 {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 5px;
+      line-height: 1.4;
+    }
+    .story-preview p {
+      font-size: 13px;
+      color: var(--cream-muted);
+      line-height: 1.55;
+    }
+    .latest-card-footer {
+      padding: 20px 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-top: 1px solid var(--cream-border);
+      margin-top: 4px;
+    }
+    .btn-primary {
+      background: var(--cream);
+      color: var(--teal-dark);
+      border: none;
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .stories-count { font-size: 13px; color: var(--cream-muted); }
+
+    /* ── Container ── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ── Section header ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 52px 0 22px;
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .section-link {
+      background: none; border: none;
+      color: var(--cream-muted);
+      font-size: 13px; font-weight: 500;
+      cursor: pointer; font-family: inherit;
+      transition: color 0.2s;
+    }
+    .section-link:hover { color: var(--cream); }
+
+    /* ── Archive Grid ── */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      padding-bottom: 72px;
+    }
+    .archive-card {
+      background: var(--card-bg);
+      border: 1px solid var(--cream-border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .archive-card:hover {
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+    .archive-card-top {
+      padding: 14px 18px 12px;
+      border-bottom: 1px solid var(--cream-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .archive-month {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--cream);
+    }
+    .archive-count {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+    }
+    .archive-card-body { padding: 16px 18px 18px; }
+    .archive-card p {
+      font-size: 13px;
+      color: var(--cream-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .archive-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+    .chip {
+      background: var(--cream-dim);
+      color: var(--cream);
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 100px;
+      letter-spacing: 0.2px;
+    }
+    .read-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--cream-muted);
+    }
+
+    /* ── Brief full view ── */
+    .brief-view { padding: 52px 0 80px; }
+    .brief-back {
+      background: none; border: none;
+      color: var(--cream-muted);
+      font-size: 13px; font-weight: 500;
+      cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 36px;
+      transition: color 0.2s;
+    }
+    .brief-back:hover { color: var(--cream); }
+    .brief-header { margin-bottom: 44px; }
+    .brief-edition-tag {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .brief-header h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .brief-meta { font-size: 14px; color: var(--cream-muted); }
+
+    /* Divider */
+    .brief-divider {
+      border: none;
+      border-top: 1px solid var(--cream-border);
+      margin: 0 0 36px;
+    }
+
+    /* Story block */
+    .story-block { margin-bottom: 28px; }
+    .story-block-title {
+      font-family: 'Lora', serif;
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--cream);
+      line-height: 1.35;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--cream-border);
+    }
+    .story-rows { margin-bottom: 36px; }
+    .story-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .story-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--cream-muted);
+      padding-top: 3px;
+    }
+    .story-content {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(240,234,214,0.85);
+    }
+    .story-row.takeaway .story-label { color: var(--cream); }
+    .story-row.takeaway .story-content {
+      color: var(--cream);
+      font-style: italic;
+      font-family: 'Lora', serif;
+      font-size: 15.5px;
+    }
+
+    /* Mood box */
+    .brief-mood {
+      background: var(--teal-dark);
+      border: 1px solid var(--cream-border);
+      border-radius: 12px;
+      padding: 22px 26px;
+      font-size: 15px;
+      font-style: italic;
+      font-family: 'Lora', serif;
+      color: var(--cream-muted);
+      line-height: 1.65;
+      margin-top: 12px;
+    }
+    .brief-mood strong {
+      color: var(--cream);
+      font-style: normal;
+    }
+
+    /* ── Archive page ── */
+    .archive-page-hero {
+      background: var(--teal-dark);
+      padding: 52px 28px 60px;
+      border-bottom: 1px solid var(--cream-border);
+    }
+    .archive-page-hero-inner { max-width: 1100px; margin: 0 auto; }
+    .archive-page-hero h1 {
+      font-family: 'Lora', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+    .archive-page-hero p { font-size: 15px; color: var(--cream-muted); }
+
+    /* ── About ── */
+    .about-wrap {
+      max-width: 680px;
+      margin: 64px auto 80px;
+      padding: 0 28px;
+    }
+    .about-wrap h1 {
+      font-family: 'Lora', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 28px;
+    }
+    .about-wrap p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(240,234,214,0.8);
+      margin-bottom: 18px;
+    }
+    .about-wrap p strong { color: var(--cream); }
+    .about-wrap .byline {
+      margin-top: 32px;
+      font-size: 13px;
+      color: var(--cream-muted);
+      border-top: 1px solid var(--cream-border);
+      padding-top: 20px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--teal-dark);
+      border-top: 1px solid var(--cream-border);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 13px;
+      color: var(--cream-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-mascot { display: none; }
+      .hero { padding: 52px 20px 80px; }
+      .latest-card { margin: -40px 16px 0; }
+      .story-preview-row { grid-template-columns: 1fr; }
+      .story-row { grid-template-columns: 1fr; gap: 4px; }
+      .story-label { padding-top: 0; }
+      nav { gap: 20px; }
+      .header-inner { padding: 0 18px; }
+      .archive-grid { grid-template-columns: 1fr; }
+      .container { padding: 0 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     DATA — the scheduled task updates this block
+═══════════════════════════════════════════ -->
+<script>
+const EDITIONS = [
+  {
+    id: "june-2026",
+    dateShort: "21 JUN",
+    dateFull: "June 21, 2026",
+    month: "June 2026",
+    tagline: "5 stories · Week of June 21, 2026",
+    headline: "5 Minutes Thai Updates — June 2026",
+    preview: "Inflation hits a 38-month high then gets surprise relief; US tariff cliff looms in July; Thailand's data center boom tops 1 trillion baht in Q1 BOI applications.",
+    mood: "Overall economic mood this week: cautiously mixed — energy price relief and a data investment boom offer some optimism, but Thailand's structural growth gap with its ASEAN neighbours and looming US tariff uncertainty keep the outlook firmly clouded.",
+    stories: [
+      {
+        title: "Thailand's Inflation Hits 38-Month High — Then Gets a Surprise Relief",
+        what: "Thailand's headline inflation rose to 2.89% in April 2026, the highest reading in 38 months, with the Commerce Ministry projecting it could reach 3% in June. However, a US-Iran peace agreement sent global oil prices tumbling, and fuel prices at Thai pumps have since begun declining. Super Power Gasohol 95 has dropped to around 50.99 baht per litre.",
+        context: "Thailand has long subsidised fuel prices through an Oil Fund, which accumulated heavy debt during the price spike triggered by Middle East conflict. The country imports the vast majority of its crude oil, making it highly exposed to global energy markets. The inflation surge was almost entirely supply-driven — not the result of strong domestic demand.",
+        significance: "For consumers and businesses, the easing in pump prices is a direct reduction in transport, logistics, and production costs. SMEs, identified as the hardest-hit group during the spike, stand to benefit most. However, the Oil Fund's accumulated debt remains a structural burden on public finances that will require resolution.",
+        takeaway: "The energy rollercoaster of 2026 underscores Thailand's vulnerability to geopolitical shocks — watch whether the government uses this window of lower prices to begin unwinding the Oil Fund subsidy regime."
+      },
+      {
+        title: "US Tariff Threat Shifts Shape: From 36% Shock to a New 12.5% Cliff in July",
+        what: "The US Supreme Court struck down IEEPA-based tariffs in early 2026, cutting Thailand's effective tariff rate from 36% to 10% under Section 122 — a significant reprieve for Thai exporters. But the US Trade Representative is scheduled to hold hearings on July 7 on proposed Section 301 tariffs of 12.5% affecting 46 countries including Thailand.",
+        context: "Thailand runs a large trade surplus with the US — exports reached $11.9 billion in March 2026 alone against $2.3 billion in imports. Top Thai exports to the US include computers ($4.08B), telephones ($2.63B), and office machine parts. This surplus has made Thailand a recurring target in US trade politics.",
+        significance: "If the 12.5% Section 301 rate is confirmed, Thai export growth in H2 2026 could stagnate. Electronics and tech hardware manufacturers — many of them multinational firms using Thailand as a regional production hub — face the most direct exposure.",
+        takeaway: "The window between now and the July 7 USTR hearings is critical; Thai industry lobbying and government diplomacy will determine whether exporters get relief or face another abrupt tariff shift."
+      },
+      {
+        title: "Data Center Boom: Thailand Bets on Digital Infrastructure as Its Investment Anchor",
+        what: "BOI investment applications in Q1 2026 surpassed 1.01 trillion baht ($30.7 billion) across 624 projects, with the digital sector alone accounting for 873.7 billion baht. In January, BOI approved seven major data center projects worth over $3.1 billion.",
+        context: "Thailand is positioning itself to become ASEAN's data center capital, competing directly with Singapore and Malaysia. The BOI's refreshed 2026–2027 incentive framework offers enhanced tax breaks for AI infrastructure, EVs, and high-value R&D, explicitly targeting global production relocation.",
+        significance: "The data center wave brings foreign capital and construction activity in the near term, and longer-term revenue from multinational cloud and AI operations. For Thailand, this is a strategic bet on digital infrastructure as a growth engine beyond tourism and traditional manufacturing.",
+        takeaway: "The BOI's \"golden year of Thai investment\" narrative is backed by real Q1 numbers, but whether it translates into sustained GDP growth depends on whether the electricity grid and skilled workforce can keep pace."
+      },
+      {
+        title: "Thailand's First Virtual Bank Goes Live with 4% Deposit Rates",
+        what: "Clicx, Thailand's first licensed virtual bank, launched publicly this week offering deposit interest rates of up to 4% per year — well above rates at traditional Thai commercial banks. It is preparing to roll out a digital lending product called Clicx Ready Credit.",
+        context: "The Bank of Thailand approved virtual banking licenses to increase financial inclusion and inject competition into a sector long dominated by a handful of large incumbents. With the policy rate at 1%, a 4% deposit offer represents a significant spread funded by lower operating costs from having no physical branches.",
+        significance: "Clicx offers Thai savers — particularly younger, digitally connected consumers — a meaningfully better return. If the digital lending arm gains traction, it could extend credit access to gig workers and small entrepreneurs who struggle with traditional bank collateral requirements.",
+        takeaway: "Virtual banking is a slow-burn disruption — watch Clicx's credit quality once lending scales, as the real test comes when economic conditions tighten."
+      },
+      {
+        title: "World Bank Pegs Thailand Growth at 1.8% — Lowest in ASEAN",
+        what: "The World Bank revised its 2026 growth forecast for Thailand to 1.8%, still placing Thailand last among ASEAN's major economies. The NESDC's own forecast range of 1.5–2.5% reflects wide uncertainty. Q1 2026 GDP came in at 2.8% year-on-year, beating expectations.",
+        context: "Thailand's underperformance versus Vietnam (above 6%) and Indonesia (around 5%) reflects structural issues: an ageing population, high household debt, sluggish productivity, and weak education outcomes. The Bank of Thailand cut rates twice to reach 1% — their lowest since 2022. The next MPC meeting is June 24.",
+        significance: "Persistently low growth compounds fiscal challenges, limits wage growth, and makes it harder to fund debt from fuel subsidies and pandemic-era stimulus. Foreign investors weighing Thailand against faster-growing peers will demand clearer reform timelines.",
+        takeaway: "The June 24 MPC meeting is worth watching — whether the Bank of Thailand signals further cuts or holds will give the clearest read on policymakers' confidence in the recovery."
+      }
+    ]
+  },
+  {
+    id: "may-2026",
+    dateShort: "MAY",
+    dateFull: "May 2026",
+    month: "May 2026",
+    tagline: "3 stories · May 2026",
+    headline: "5 Minutes Thai Updates — May 2026",
+    preview: "Thailand and Vietnam bury the hatchet with a $25B trade masterplan; TikTok commits $25B to Thailand's data infrastructure; the AI boom powers Thai export growth.",
+    mood: "Thailand is making ambitious structural moves — aligning with Vietnam and landing mega tech investments — but the real test will be execution on energy and talent supply chains.",
+    stories: [
+      {
+        title: "From Fierce Rivals to Ultimate Partners: Thailand & Vietnam's $25B Masterplan",
+        what: "In May 2026, Thailand and Vietnam officially exchanged the 2026–2031 Action Plan to upgrade their relationship to a \"Comprehensive Strategic Partnership.\" Vietnamese President To Lam chose Thailand as his first ASEAN destination after taking office.",
+        context: "For decades, Thailand and Vietnam competed head-to-head for the same foreign factory investments. As global economic pressures mounted around their 50th diplomatic anniversary, both nations decided to combine forces. They aim to boost bilateral trade to $25 billion by 2027 using a \"Three Connects\" strategy.",
+        significance: "The \"Three Connects\" links Thailand's high-tech upstream manufacturing with Vietnam's downstream assembly power, develops a Thailand–Laos–Vietnam transport corridor, and coordinates green energy policy. For Thai farmers and exporters, logistics costs fall and China market access improves.",
+        takeaway: "This reframes the regional competition: instead of racing to the bottom on labour costs, Thailand is betting on becoming the R&D and components hub that supplies Vietnam's assembly lines."
+      },
+      {
+        title: "TikTok's Billions Solidify Thailand as Southeast Asia's Next Digital Hub",
+        what: "Thailand's Board of Investment (BOI) approved a record-breaking $25 billion (842 billion baht) commitment from TikTok to expand its data infrastructure in Thailand, alongside a massive wave of other foreign technology investments.",
+        context: "Global tech giants are hunting for politically neutral \"safe zones\" to build cloud and AI networks, but strictly require massive, stable green energy. These rapid mega-investments are straining the Eastern region's power grid, forcing the government to accelerate its Power Development Plan.",
+        significance: "Securing these data centers shifts the Thai economy away from traditional manufacturing and creates thousands of high-paying tech jobs. Unlocking the Direct PPA mechanism — allowing companies to buy renewable electricity directly — is critical to keeping investors committed.",
+        takeaway: "Cutting red tape got these tech giants to the door, but urgently upgrading the clean energy grid is what will keep them here long-term."
+      },
+      {
+        title: "The AI Boom Gives Thailand a Strong Export Boost",
+        what: "Thailand's exports are growing strongly in early 2026, with a key driver being a surge in shipments of electronics, electrical goods, computer components, and data storage devices — areas where Thailand has strong manufacturing capabilities.",
+        context: "The global rise of AI and cloud computing is fueling massive investment in data centers, increasing worldwide demand for hardware such as chips, hard drives, and electronic components.",
+        significance: "This trend provides a strong short-term growth engine and highlights Thailand's critical role in global electronics supply chains. However, it does not represent a full structural shift away from tourism and services.",
+        takeaway: "Thailand is benefiting from the AI-driven electronics cycle as a key manufacturing hub — a powerful but cyclical boost, not a permanent transformation."
+      }
+    ]
+  },
+  {
+    id: "march-2026",
+    dateShort: "MAR",
+    dateFull: "March 2026",
+    month: "March 2026",
+    tagline: "3 stories · March 2026",
+    headline: "5 Minutes Thai Updates — March 2026",
+    preview: "The diesel price cap collapses and stagflation looms; retail investors get a new tax-advantaged savings tool; record FDI floods in for tech and EVs.",
+    mood: "March was a month of sharp contrasts: real pain at the pump for consumers and SMEs, but the largest wave of high-quality foreign investment Thailand has seen in years.",
+    stories: [
+      {
+        title: "The Energy Shock and the Stagflation Squeeze",
+        what: "The government ended the 30 baht diesel price cap, sending prices past 40 baht per litre. A 7-step relief package was launched — cheap SME loans, discounted fertiliser for farmers, and 100 extra baht for welfare cardholders.",
+        context: "Thailand imports over half its energy. Middle East shipping disruptions inflated the national import bill and weakened the baht. The 30 baht cap had pushed the Oil Fuel Fund into a 35 billion baht deficit, forcing the state to abandon blanket subsidies.",
+        significance: "Higher fuel and electricity costs raise production and logistics expenses across all sectors, hitting manufacturing and food delivery hardest. This fuels inflation while consumers cut spending — the stagflation trap.",
+        takeaway: "This crisis is a harsh wake-up call: Thailand's heavy reliance on imported fossil fuels is a structural vulnerability that needs long-term attention, not just short-term patches."
+      },
+      {
+        title: "TISA: A New Tax-Advantaged Account to Wake Up Thailand's 'Lazy Money'",
+        what: "Financial regulators are pushing to launch the Thailand Individual Savings Account (TISA), with the SEC and SET finalising tax rules for a public rollout later in 2026. TISA offers clear tax breaks on capital gains and dividends without the lock-up periods of older tax funds.",
+        context: "A 2025 OECD review noted that while Thailand's stock market is equivalent to 96% of GDP, retail participation is seriously lagging. Most everyday Thai wealth sits in low-yield bank deposits and illiquid real estate.",
+        significance: "TISA makes it easier and more tax-friendly for ordinary people to invest, helping them keep more profits and build long-term wealth. It could inject significant fresh liquidity into Thai equities.",
+        takeaway: "Regulators are trying to mobilise the savings sitting idle in bank accounts. The key question is whether TISA's simplicity and tax benefits are compelling enough to change Thai retail investor behaviour."
+      },
+      {
+        title: "Record FDI: Tech Giants and EV Makers Bet Big on Thailand",
+        what: "BOI reported a massive surge in new investments — foreign money flooding into EVs and data centers, and domestic Thai company investment rising 86%. The BOI launched a \"Thailand FastPass\" to cut red tape for mega projects.",
+        context: "With geopolitical tensions creating a \"New World Order,\" multinationals are looking for a stable, neutral base. Thailand is competing with Vietnam and Malaysia for EV supply chains, data centers, semiconductor talent, and AI infrastructure.",
+        significance: "The government is making structural changes to win this competition: a Direct PPA for green energy procurement, partnerships with universities to train 80,000 semiconductor students, and the FastPass to unblock stalled projects.",
+        takeaway: "Thailand is no longer just selling cheap labour — it's selling stability, green energy access, and high-tech readiness. Whether it can deliver on all three will determine whether this FDI wave is lasting."
+      }
+    ]
+  },
+  {
+    id: "february-2026",
+    dateShort: "FEB",
+    dateFull: "February 2026",
+    month: "February 2026",
+    tagline: "4 stories · February 2026",
+    headline: "5 Minutes Thai Updates — February 2026",
+    preview: "The SET index breaks 1,500 for the first time in years. Four forces drove the rally: a Bhumjaithai super-majority, a surprise rate cut, the Thailand 10 Plus plan, and 60 billion baht in foreign inflows.",
+    mood: "February marked a turning point for Thai markets — political clarity, monetary easing, and foreign capital all converged to spark a rally that few saw coming.",
+    stories: [
+      {
+        title: "Why the SET Just Broke 1,500: Four Forces Behind the Rally",
+        what: "Thailand's SET index broke through 1,500 — a level it hadn't reached in years — driven by four converging forces: a decisive election outcome, a surprise rate cut, a bold new fiscal roadmap, and a wave of foreign capital inflows.",
+        context: "The SET had trended downward throughout most of 2025, with Thai equities trading at deeply discounted valuations. Investors had been waiting for political clarity and a credible economic narrative before committing capital.",
+        significance: "The combination of these four factors created an unusually powerful momentum event. Analysts revised their year-end SET targets upward as each force reinforced the others.",
+        takeaway: "The rally is real, but sustainable gains will require the Bhumjaithai government to follow through on the Thailand 10 Plus agenda — particularly on infrastructure and tech investment."
+      },
+      {
+        title: "Bhumjaithai's Super-Majority: The Political Clarity Markets Were Waiting For",
+        what: "The February 8 election delivered a decisive super-majority victory for the Bhumjaithai Party, allowing it to form a stable coalition government. Political uncertainty that had weighed on markets since late 2025 was removed almost overnight.",
+        context: "Parliament had been dissolved in late 2025, creating months of investor caution. Thai stocks had underperformed regional peers partly because fund managers were reluctant to commit capital ahead of an unclear election outcome.",
+        significance: "Political stability directly impacts fiscal policy execution, public investment timelines, and regulatory reform. A strong majority government can pass budgets and approve BOI incentives without being held hostage by coalition partners.",
+        takeaway: "Elections matter for markets not just through policy — but through the removal of uncertainty itself. Thailand's political risk premium has dropped significantly."
+      },
+      {
+        title: "Bank of Thailand Cuts to 1%: A Surprise Boost to Liquidity",
+        what: "The Bank of Thailand surprised the market with a 0.25% rate cut, bringing the policy rate to 1.00% — its lowest level in nearly four years. The MPC voted 4-2 in favour of the cut.",
+        context: "Thailand's economic growth had been projected at just 1.5–2% for 2026. With household debt high and consumer spending sluggish, the MPC determined that easing borrowing costs outweighed inflation risks at that stage.",
+        significance: "Lower rates reduce mortgage costs, lower corporate borrowing expenses, and provide a psychological boost to equity valuations. Analysts immediately revised SET index targets upward after the announcement.",
+        takeaway: "The rate cut signals the BoT is prioritising growth over caution — but with the rate now at 1%, there is limited room left if conditions deteriorate."
+      },
+      {
+        title: "Thailand 10 Plus: A 1.1 Trillion Baht Bet on Growth",
+        what: "The new Bhumjaithai government unveiled its flagship economic roadmap, \"Thailand 10 Plus,\" targeting 1.1 trillion baht in investments across green energy, AI infrastructure, and grassroots stimulus programs.",
+        context: "Thailand's growth has chronically lagged ASEAN peers. The 10 Plus plan is designed to address structural weaknesses: underinvestment in high-tech industry, poor productivity growth, and over-reliance on tourism and low-value manufacturing.",
+        significance: "For markets, 10 Plus provides a credible long-term earnings growth narrative for listed companies in construction, energy, and tech. For ordinary Thais, grassroots stimulus components are designed to boost consumption in provinces outside Bangkok.",
+        takeaway: "The plan's ambition is clear — the execution risk is whether the government can translate the 1.1 trillion baht target into actual project approvals within the political term."
+      }
+    ]
+  },
+  {
+    id: "january-2026",
+    dateShort: "JAN",
+    dateFull: "January 2026",
+    month: "January 2026",
+    tagline: "3 stories · January 2026",
+    headline: "5 Minutes Thai Updates — January 2026",
+    preview: "A general election is called for February 8. The Bank of Thailand cracks down on gold trading to curb baht appreciation. Thailand prepares to host the IMF-World Bank annual meetings in October.",
+    mood: "January set the tone for a year defined by political transition, financial market volatility, and Thailand's growing ambition to lead on the global economic stage.",
+    stories: [
+      {
+        title: "Thailand Announces Tighter Controls on Gold Trading",
+        what: "The Bank of Thailand announced new reporting requirements and transaction limits for gold trading platforms, effective March 1. Limits are set at 50 million baht per person per platform per side, with payments required to be electronic and full-amount only — short selling is prohibited.",
+        context: "The baht had appreciated to around 31 THB/USD, driven partly by large gold trading inflows. A stronger baht hurts Thailand's exports, tourism receipts, and the overseas earnings of Thai corporates when converted back to baht.",
+        significance: "This is a direct policy intervention targeting one specific channel of currency appreciation. By limiting speculative gold trading volumes, the BoT is attempting to reduce capital inflows that put upward pressure on the baht.",
+        takeaway: "Currency management is a constant balancing act in Thailand. Watch whether these gold-trading restrictions succeed in cooling baht strength, or whether the BoT needs to deploy additional tools."
+      },
+      {
+        title: "BoT Flags Suspicious Cash Withdrawals Ahead of Election",
+        what: "The Bank of Thailand confirmed it is closely monitoring abnormal cash withdrawals, with single transactions as high as 250 million baht — specifically requesting only 500-baht notes. The flagging comes ahead of the February 8 general election.",
+        context: "A \"Zero Corruption\" survey of 4,814 respondents found vote-buying rates ranging from 100 to 7,500 baht per person, averaging 985 baht nationally. Bangkok saw the highest average at 1,169 baht per vote.",
+        significance: "Large-scale cash withdrawals of this nature suggest organised political financing activity. The BoT's monitoring signals that financial regulators view vote-buying as a financial integrity concern affecting the banking system.",
+        takeaway: "Thailand's elections carry a financial dimension that extends beyond policy outcomes — the integrity of the democratic process itself affects long-term institutional investor confidence."
+      },
+      {
+        title: "Thailand Hosts the 2026 IMF–World Bank Annual Meetings",
+        what: "Thailand is confirmed as the host for the 2026 Annual Meetings of the IMF and World Bank Group, taking place October 12–18 at the Queen Sirikit National Convention Center in Bangkok. The last time Thailand hosted was in 1991.",
+        context: "Thailand will use the platform to propose the \"Bangkok Blueprint\" — a global policy guideline built around three pillars: digital infrastructure development, cybersecurity, and financial inclusion.",
+        significance: "Hosting this event is a significant soft-power moment for Thailand, putting Bangkok at the centre of global economic diplomacy and bringing thousands of finance ministers and institutional investors to the country.",
+        takeaway: "The Bangkok Blueprint signals Thailand's ambition to be a policy thought-leader, not just a recipient of global economic decisions."
+      }
+    ]
+  }
+];
+</script>
+
+<!-- ═══════════════════════════════════════════
+     STRUCTURE
+═══════════════════════════════════════════ -->
+
+<header>
+  <div class="header-inner">
+    <div class="logo" onclick="showPage('home')">
+      <span class="logo-name">5 Minutes Thai</span>
+      <span class="logo-dot">·</span>
+      <span class="logo-sub">Monthly Newsletter</span>
+    </div>
+    <nav>
+      <button id="nav-home" class="active" onclick="showPage('home')">Today</button>
+      <button id="nav-archive" onclick="showPage('archive')">Archive</button>
+      <button id="nav-about" onclick="showPage('about')">About</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-label">Weekly Edition · Thailand</p>
+        <h1>5 Minutes Thai<br/><em>Updates.</em></h1>
+        <p class="hero-tagline">The stories shaping Thailand's economy and finance — researched, summarised, and delivered every week.</p>
+      </div>
+      <!-- Magnifying glass mascot SVG -->
+      <svg class="hero-mascot" viewBox="0 0 220 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="130" cy="80" r="58" stroke="#f0ead6" stroke-width="9" fill="none" opacity="0.7"/>
+        <line x1="83" y1="127" x2="38" y2="175" stroke="#f0ead6" stroke-width="9" stroke-linecap="round" opacity="0.7"/>
+        <!-- body -->
+        <path d="M70 210 Q90 185 110 195 Q140 205 160 195" stroke="#f0ead6" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.6"/>
+        <circle cx="110" cy="175" r="18" stroke="#f0ead6" stroke-width="5" fill="none" opacity="0.6"/>
+        <path d="M80 250 Q90 225 110 230 Q130 235 140 250" stroke="#f0ead6" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <path d="M95 230 Q85 245 75 265" stroke="#f0ead6" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <path d="M125 230 Q130 248 135 265" stroke="#f0ead6" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.5"/>
+        <!-- arm holding magnifier -->
+        <path d="M128 157 Q150 140 145 115" stroke="#f0ead6" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.6"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="latest-card" id="latest-card"></div>
+
+    <div class="section-header">
+      <h2 class="section-title">Previous Editions</h2>
+      <button class="section-link" onclick="showPage('archive')">View all →</button>
+    </div>
+    <div class="archive-grid" id="recent-grid"></div>
+  </div>
+</div>
+
+<!-- ARCHIVE -->
+<div id="page-archive" class="page">
+  <div class="archive-page-hero">
+    <div class="archive-page-hero-inner">
+      <h1>Archive</h1>
+      <p>Every edition of 5 Minutes Thai Updates, from the beginning.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div style="padding: 40px 0 72px;">
+      <div class="archive-grid" id="archive-grid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- BRIEF DETAIL -->
+<div id="page-brief" class="page">
+  <div class="container">
+    <div class="brief-view" id="brief-content"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <div class="about-wrap">
+    <h1>About</h1>
+    <p>Hi — I'm <strong>Ernearn</strong>, a Thai student studying in London, seven hours behind the news back home. I started <strong>5 Minutes Thai Updates</strong> because I kept drifting away from what was happening in Thailand's economy while buried in coursework and global finance content.</p>
+    <p>This newsletter is my way of staying connected. Each week, I handpick the most significant stories affecting Thailand's economy and finance, do the research, and distill it into a fast, readable update — with real numbers, clear context, and a concrete takeaway.</p>
+    <p>The goal isn't deep economic analysis. It's to make sure that anyone who cares about Thailand's financial future stays informed, even if they only have five minutes.</p>
+    <p class="byline">Published weekly · Made in London 🇬🇧 for Thailand 🇹🇭<br/>By Orapich Ruayrungeuang (Ernearn)</p>
+  </div>
+</div>
+
+<footer>
+  5 Minutes Thai Updates · Thailand's Economy, Briefly. · Updated weekly by Ernearn
+</footer>
+
+<script>
+  function showPage(page, editionId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    const navBtn = document.getElementById('nav-' + page);
+    if (navBtn) navBtn.classList.add('active');
+    window.scrollTo(0, 0);
+    if (page === 'brief' && editionId) renderBrief(editionId);
+  }
+
+  function makeArchiveCard(e) {
+    const chips = e.stories.slice(0, 3).map(s =>
+      `<span class="chip">${s.title.split(' ').slice(0, 3).join(' ')}…</span>`
+    ).join('');
+    return `
+      <div class="archive-card" onclick="showPage('brief','${e.id}')">
+        <div class="archive-card-top">
+          <span class="archive-month">${e.month}</span>
+          <span class="archive-count">${e.stories.length} stories</span>
+        </div>
+        <div class="archive-card-body">
+          <p>${e.preview}</p>
+          <div class="archive-card-footer">
+            <div class="chips">${chips}</div>
+            <span class="read-link">Read →</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function renderLatest() {
+    const e = EDITIONS[0];
+    const s1 = e.stories[0], s2 = e.stories[1];
+    document.getElementById('latest-card').innerHTML = `
+      <div class="latest-card-top">
+        <span class="edition-label">Latest Edition · ${e.stories.length} stories</span>
+        <span class="edition-date">${e.dateFull}</span>
+      </div>
+      <div class="latest-card-body">
+        <h2>${e.headline}</h2>
+        <div class="story-preview-row">
+          <div class="story-preview">
+            <h3>${s1.title}</h3>
+            <p>${s1.what.slice(0, 160)}…</p>
+          </div>
+          <div class="story-preview">
+            <h3>${s2.title}</h3>
+            <p>${s2.what.slice(0, 160)}…</p>
+          </div>
+        </div>
+      </div>
+      <div class="latest-card-footer">
+        <button class="btn-primary" onclick="showPage('brief','${e.id}')">Read full brief →</button>
+        <span class="stories-count">${e.stories.length} stories this week</span>
+      </div>`;
+  }
+
+  function renderRecent() {
+    document.getElementById('recent-grid').innerHTML =
+      EDITIONS.slice(1, 4).map(makeArchiveCard).join('');
+  }
+
+  function renderArchive() {
+    document.getElementById('archive-grid').innerHTML =
+      EDITIONS.slice(1).map(makeArchiveCard).join('');
+  }
+
+  function renderBrief(id) {
+    const e = EDITIONS.find(x => x.id === id);
+    if (!e) return;
+    const storiesHTML = e.stories.map(s => `
+      <div class="story-block">
+        <h2 class="story-block-title">${s.title}</h2>
+        <div class="story-rows">
+          <div class="story-row">
+            <span class="story-label">What happened</span>
+            <span class="story-content">${s.what}</span>
+          </div>
+          <div class="story-row">
+            <span class="story-label">Context</span>
+            <span class="story-content">${s.context}</span>
+          </div>
+          <div class="story-row">
+            <span class="story-label">Significance</span>
+            <span class="story-content">${s.significance}</span>
+          </div>
+          <div class="story-row takeaway">
+            <span class="story-label">Takeaway</span>
+            <span class="story-content">${s.takeaway}</span>
+          </div>
+        </div>
+      </div>`).join('');
+
+    document.getElementById('brief-content').innerHTML = `
+      <button class="brief-back" onclick="showPage('home')">← Back</button>
+      <div class="brief-header">
+        <span class="brief-edition-tag">Thai Economy · ${e.stories.length} stories</span>
+        <h1>${e.headline}</h1>
+        <p class="brief-meta">${e.dateFull} · 5 Minutes Thai Updates · by Ernearn</p>
+      </div>
+      <hr class="brief-divider"/>
+      ${storiesHTML}
+      <div class="brief-mood"><strong>This week's mood —</strong> ${e.mood}</div>`;
+  }
+
+  renderLatest();
+  renderRecent();
+  renderArchive();
+</script>
+</body>
+</html>
